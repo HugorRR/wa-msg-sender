@@ -1,4 +1,8 @@
-streamlit==1.39.0
-pandas==2.2.3
-pywhatkit==5.4
+streamlit
+pandas
+pywhatkit
 openpyxl
+Pillow
+pyautogui
+requests
+wikipedia
