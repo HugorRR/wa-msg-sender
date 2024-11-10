@@ -3,6 +3,5 @@ pandas
 pywhatkit
 openpyxl
 Pillow
-pyautogui
-requests
-wikipedia
+mouseinfo
+pyvirtualdisplay
