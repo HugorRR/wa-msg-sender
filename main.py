@@ -4,6 +4,11 @@ import pywhatkit
 import time
 from datetime import datetime
 import io
+from pyvirtualdisplay import Display
+
+# Inicia a tela virtual
+display = Display(visible=0, size=(1024, 768))
+display.start()
 
 st.set_page_config(page_title="WhatsApp Sender", page_icon="📱", layout="wide")
 
@@ -197,3 +202,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # Finaliza a tela virtual
+    display.stop()
