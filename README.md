@@ -1,6 +1,9 @@
-📱 WhatsApp Sender
+## 📱 WhatsApp Sender
 Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma automatizada.
-🚀 Funcionalidades
+
+---
+
+## 🚀 Funcionalidades
 
 📧 Envio de mensagens individuais ou em massa
 📎 Suporte para importação de lista de contatos via Excel
@@ -9,7 +12,9 @@ Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma au
 📋 Validação automática de números de telefone
 📈 Relatório de envios bem-sucedidos
 
-🛠️ Instalação
+---
+
+##🛠️ Instalação
 Como Instalar e Executar
 
 Clone o repositório:
@@ -24,44 +29,60 @@ Execute o aplicativo:
 
 Copystreamlit run app.py
 
-Pré-requisitos
+---
+
+## Pré-requisitos
 🐍 Python 3.9 ou superior
 📱 Conta do WhatsApp Web
 📦 Bibliotecas listadas em requirements.txt
 
-Configuração
+---
+
+## Configuração
 🔓 Faça login na sua conta do WhatsApp Web no navegador.
 📵 Mantenha a sessão do WhatsApp Web ativa durante o uso do aplicativo.
 
-Como Usar
+---
+
+## Como Usar
 📥 Faça o download do template Excel.
 ✏️ Preencha o template com os números de telefone e mensagens.
 📤 Faça upload do arquivo preenchido.
 ⚙️ Configure as opções desejadas.
 📤 Clique em "Enviar Mensagens".
 
-🔧 Tecnologias Utilizadas
+---
+
+## 🔧 Tecnologias Utilizadas
 🐍 Python
 🌀 Streamlit
 🐼 Pandas
 🕷️ Selenium
 
-🤝 Contribuindo
+---
+
+## 🤝 Contribuindo
 Contribuições são bem-vindas! Para contribuir:
 
 🍴 Faça um fork do repositório.
 🌱 Crie uma branch para sua feature ou correção de bug.
 🔄 Faça um pull request.
 
-📝 Licença
+---
+
+## 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 💜 Apoie o Projeto
 Se este projeto te ajudou de alguma forma, considere fazer uma doação:
 
-👨‍💻 Autor
+---
+
+## 👨‍💻 Autor
 Hugo Néri
 👨‍💻 PIX: hugorogerio522@gmail.com
 
-📧 Contato
+---
+
+## 📧 Contato
 📧 Email: hugorogerio522@gmail.com
 💼 LinkedIn: https://www.linkedin.com/in/hugo-neri-855a95228/
