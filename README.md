@@ -1,7 +1,7 @@
-📱 WhatsApp Sender
+#📱 WhatsApp Sender
 Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma automatizada.
 
-🚀 Funcionalidades
+##🚀 Funcionalidades
 📧 Envio de mensagens individuais ou em massa
 📎 Suporte para importação de lista de contatos via Excel
 📊 Barra de progresso em tempo real
@@ -12,15 +12,15 @@ Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma au
 
 
 
-Clone o repositório:
+##Clone o repositório:
 git clone https://github.com/seu-usuario/whatsapp-sender.git
 
 
-Instale as dependências:
+##Instale as dependências:
 pip install -r requirements.txt
 
 
-Execute o aplicativo:
+##Execute o aplicativo:
 streamlit run app.py
 📋 Pré-requisitos
 🐍 Python 3.9 ou superior
@@ -35,7 +35,9 @@ streamlit run app.py
 📤 Faça upload do arquivo preenchido.
 ⚙️ Configure as opções desejadas.
 📤 Clique em "Enviar Mensagens".
-🔧 Tecnologias Utilizadas
+
+
+##🔧 Tecnologias Utilizadas
 🐍 Python
 🌀 Streamlit
 🐼 Pandas
@@ -43,7 +45,7 @@ streamlit run app.py
 🤝 Contribuindo
 
 
-Contribuições são bem-vindas! Para contribuir:
+##Contribuições são bem-vindas! Para contribuir:
 🍴 Faça um fork do repositório.
 🌱 Crie uma branch para sua feature ou correção de bug.
 🔄 Faça um pull request.
@@ -52,17 +54,16 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 
 
 
-💜 Apoie o Projeto
+##💜 Apoie o Projeto
 Se este projeto te ajudou de alguma forma, considere fazer uma doação:
 
 
-
+##👨‍💻 Autor
 💳 PIX: hugorogerio522@gmail.com
-👨‍💻 Autor
 Hugo Néri - GitHub
 
 
 
-📧 Contato
+##📧 Contato
 📧 Email: hugorogerio522@gmail.com
 💼 LinkedIn: https://www.linkedin.com/in/hugo-neri-855a95228/
