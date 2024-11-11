@@ -1,14 +1,15 @@
 import streamlit as st
 import pandas as pd
-import pywhatkit
 import time
 from datetime import datetime
 import io
-from pyvirtualdisplay import Display
-
-# Inicia a tela virtual
-display = Display(visible=0, size=(1024, 768))
-display.start()
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+import urllib.parse
 
 st.set_page_config(page_title="WhatsApp Sender", page_icon="📱", layout="wide")
 
@@ -24,56 +25,72 @@ def download_template():
     buffer.seek(0)
     return buffer
 
+def setup_driver():
+    """Configura o driver do Chrome com as opções necessárias"""
+    chrome_options = Options()
+    return webdriver.Chrome(options=chrome_options)
+
+def enviar_mensagem_whatsapp(driver, telefone, mensagem):
+    """
+    Envia uma mensagem do WhatsApp usando Selenium
+    """
+    # Formata o número de telefone
+    telefone = ''.join(filter(str.isdigit, telefone))
+    if len(telefone) == 11:
+        telefone = '55' + telefone
+    
+    # Codifica a mensagem para URL
+    mensagem_encoded = urllib.parse.quote(mensagem)
+    
+    # Cria o link do WhatsApp
+    url = f'https://web.whatsapp.com/send?phone={telefone}&text={mensagem_encoded}'
+    
+    try:
+        # Abre o WhatsApp Web
+        driver.get(url)
+        
+        # Aguarda até que o campo de mensagem esteja presente (30 segundos de timeout)
+        campo_mensagem = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.XPATH, '//div[@aria-placeholder="Digite uma mensagem"]'))
+        )
+        
+        # Envia a mensagem
+        campo_mensagem.send_keys(Keys.ENTER)
+        
+        # Aguarda um pouco para a mensagem ser enviada
+        time.sleep(3)
+        
+        return True
+    except Exception as e:
+        st.error(f"Erro ao enviar mensagem: {str(e)}")
+        return False
+
 def enviar_mensagens_whatsapp(df, progress_bar, status_text, config):
     """
-    Envia mensagens do WhatsApp para contatos no DataFrame
+    Envia mensagens do WhatsApp para contatos no DataFrame usando Selenium
     """
+    driver = setup_driver()
     total_mensagens = len(df)
     mensagens_enviadas = 0
     
-    # Adicionando prints de diagnóstico
-    st.write("Total de mensagens a enviar:", total_mensagens)
-    st.write("Conteúdo do DataFrame:")
-    st.write(df)
-    
-    for index, row in df.iterrows():
-        telefone = str(row['telefone'])
-        mensagem = str(row['mensagem'])
-        
-        # Print para debug
-        st.write(f"Tentando enviar para: {telefone}")
-        st.write(f"Mensagem: {mensagem}")
-        
-        # Remove caracteres especiais do telefone
-        telefone = ''.join(filter(str.isdigit, telefone))
-        
-        # Adiciona prefixo conforme configuração
-        if config['adicionar_prefixo'] and len(telefone) == 11:
-            telefone = '+55' + telefone
+    try:
+        for index, row in df.iterrows():
+            telefone = str(row['telefone'])
+            mensagem = str(row['mensagem'])
             
-        st.write(f"Número formatado: {telefone}")
-        
-        try:
             status_text.text(f"Enviando mensagem para {telefone}...")
             
-            pywhatkit.sendwhatmsg_instantly(
-                phone_no=telefone,
-                message=mensagem,
-                wait_time=config['tempo_espera'],
-                tab_close=config['fechar_aba']
-            )
+            if enviar_mensagem_whatsapp(driver, telefone, mensagem):
+                mensagens_enviadas += 1
+                progress_bar.progress(mensagens_enviadas / total_mensagens)
+                status_text.text(f"✅ Mensagem enviada com sucesso para {telefone}")
+            else:
+                status_text.text(f"❌ Erro ao enviar mensagem para {telefone}")
             
-            mensagens_enviadas += 1
-            progress_bar.progress(mensagens_enviadas / total_mensagens)
-            status_text.text(f"✅ Mensagem enviada com sucesso para {telefone}")
-            
-            time.sleep(config['intervalo_mensagens'])  # Intervalo entre mensagens
-            
-        except Exception as e:
-            st.write(f"Erro detalhado: {str(e)}")
-            status_text.text(f"❌ Erro ao enviar mensagem para {telefone}: {str(e)}")
-            time.sleep(5)
-            continue
+            time.sleep(config['intervalo_mensagens'])
+    
+    finally:
+        driver.quit()
     
     return mensagens_enviadas
 
@@ -83,15 +100,6 @@ def main():
     
     # Configurações na sidebar
     st.sidebar.header("⚙️ Configurações")
-    
-    # Tempo de espera para carregar o WhatsApp
-    tempo_espera = st.sidebar.number_input(
-        "Tempo de espera para carregar WhatsApp (segundos)",
-        min_value=5,
-        max_value=30,
-        value=10,
-        help="Tempo de espera para o WhatsApp Web carregar antes de enviar a mensagem"
-    )
     
     # Intervalo entre mensagens
     intervalo_mensagens = st.sidebar.number_input(
@@ -104,18 +112,6 @@ def main():
     
     # Opções avançadas em um expander
     with st.sidebar.expander("🔧 Opções Avançadas"):
-        adicionar_prefixo = st.checkbox(
-            "Adicionar prefixo +55",
-            value=True,
-            help="Adiciona automaticamente o prefixo +55 para números brasileiros"
-        )
-        
-        fechar_aba = st.checkbox(
-            "Fechar aba após envio",
-            value=True,
-            help="Fecha automaticamente a aba do navegador após enviar a mensagem"
-        )
-        
         mostrar_preview = st.checkbox(
             "Mostrar preview de mensagens",
             value=True,
@@ -124,10 +120,7 @@ def main():
 
     # Configurações agrupadas em um dicionário
     config = {
-        'tempo_espera': tempo_espera,
         'intervalo_mensagens': intervalo_mensagens,
-        'adicionar_prefixo': adicionar_prefixo,
-        'fechar_aba': fechar_aba,
         'mostrar_preview': mostrar_preview
     }
 
@@ -143,9 +136,9 @@ def main():
     
     st.sidebar.warning("""
     ⚠️ Atenção:
-    - Mantenha o WhatsApp Web aberto
+    - Você precisará escanear o QR Code do WhatsApp Web
     - Evite enviar muitas mensagens seguidas
-    - Na primeira vez, faça login no WhatsApp Web
+    - Mantenha sua sessão do WhatsApp Web ativa
     """)
     
     st.sidebar.header("Creditos", divider=True)
@@ -202,5 +195,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    # Finaliza a tela virtual
-    display.stop()
