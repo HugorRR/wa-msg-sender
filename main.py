@@ -28,6 +28,19 @@ def download_template():
 def setup_driver():
     """Configura o driver do Chrome com as opções necessárias"""
     chrome_options = Options()
+    # Add these options to help with common issues
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument("--remote-debugging-port=9222")
+    chrome_options.add_argument('--disable-features=VizDisplay')
+    chrome_options.add_argument("--window-size=1920x1080")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--proxy-server='direct://'")
+    chrome_options.add_argument("--proxy-bypass-list=*")
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    chrome_options.add_argument('--ignore-certificate-errors')
     return webdriver.Chrome(options=chrome_options)
 
 def enviar_mensagem_whatsapp(driver, telefone, mensagem):
