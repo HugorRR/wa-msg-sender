@@ -9,14 +9,18 @@ Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma au
 📋 Validação automática de números de telefone
 📈 Relatório de envios bem-sucedidos
 🛠️ Instalação
+
+
+
 Clone o repositório:
-
 git clone https://github.com/seu-usuario/whatsapp-sender.git
+
+
 Instale as dependências:
-
 pip install -r requirements.txt
-Execute o aplicativo:
 
+
+Execute o aplicativo:
 streamlit run app.py
 📋 Pré-requisitos
 🐍 Python 3.9 ou superior
@@ -37,20 +41,27 @@ streamlit run app.py
 🐼 Pandas
 🕷️ Selenium
 🤝 Contribuindo
-Contribuições são bem-vindas! Para contribuir:
 
+
+Contribuições são bem-vindas! Para contribuir:
 🍴 Faça um fork do repositório.
 🌱 Crie uma branch para sua feature ou correção de bug.
 🔄 Faça um pull request.
 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
+
+
 💜 Apoie o Projeto
 Se este projeto te ajudou de alguma forma, considere fazer uma doação:
+
+
 
 💳 PIX: hugorogerio522@gmail.com
 👨‍💻 Autor
 Hugo Néri - GitHub
+
+
 
 📧 Contato
 📧 Email: hugorogerio522@gmail.com
