@@ -2,6 +2,4 @@ streamlit
 pandas
 pywhatkit
 openpyxl
-Pillow
-mouseinfo
-pyvirtualdisplay
+selenium==4.26.1
