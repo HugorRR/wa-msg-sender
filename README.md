@@ -14,7 +14,7 @@ Um aplicativo Streamlit para enviar mensagens em massa pelo WhatsApp de forma au
 
 ---
 
-##🛠️ Instalação
+## 🛠️ Instalação
 Como Instalar e Executar
 
 Clone o repositório:
@@ -27,7 +27,7 @@ Copypip install -r requirements.txt
 
 Execute o aplicativo:
 
-Copystreamlit run app.py
+main run app.py
 
 ---
 
